@@ -1,7 +1,9 @@
+using HelperMethods;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using HelperMethods;
+
 
 
 [CreateAssetMenu(fileName = "AttackState", menuName = "BossStates/Attack")]
@@ -10,6 +12,19 @@ public class AttackState : AIState, IAttackState
     [SerializeField] Animator bossAnimator;
 
     string currentAttack;
+
+    class AttackInfo
+    {
+        public List<string> attackList = new List<string>();
+        public List<string> previousAttackList = new List<string>();
+        public string previousAttack;
+        public int attackType;
+        public int previousAttackType;
+        public int storedIndex;
+    }
+
+    //previous attack info
+    AttackInfo attackInfo = new AttackInfo();
 
     bool attacking;
 
@@ -40,15 +55,6 @@ public class AttackState : AIState, IAttackState
             throw new System.Exception("You did not initalize");
         }
 
-        /*if(Util.DistanceNoY(bossTransform.position, Player) < maxDistance)
-        {
-            GenerateAttack(physicalAttacks);
-        }
-        else
-        {
-            GenerateAttack(rangedAttacks);
-        }*/
-
         float temp = Util.DistanceNoY(bossTransform.position, Player);
         Debug.Log(temp);
 
@@ -56,17 +62,22 @@ public class AttackState : AIState, IAttackState
         if(ctx.BossInformation.rangedAttacks.Count == 0)
         {
             Debug.Log("You have no ranged attacks");
-            GenerateAttack(ctx.BossInformation.meleeAttacks);
+            attackInfo.attackList = ctx.BossInformation.meleeAttacks;
+            attackInfo.attackType = 0;
+            GenerateAttack(attackInfo.attackList);
         }
         else
         {
-            GenerateAttack(Util.DistanceNoY(bossTransform.position, Player) <= ctx.BossInformation.meleeDistance ? ctx.BossInformation.meleeAttacks : ctx.BossInformation.rangedAttacks);
+            bool close = Util.DistanceNoY(bossTransform.position, Player) <= ctx.BossInformation.meleeDistance;
+
+            attackInfo.attackType = close ? 0 : 1;
+
+            attackInfo.attackList = close ? ctx.BossInformation.meleeAttacks : ctx.BossInformation.rangedAttacks;
+
+            GenerateAttack(attackInfo.attackList);
         }
 
         ExecuteAttack();
-
-        //GenerateAttack(physicalAttacks);
-        //ExecuteAttack();
     }
 
     public override void ExecuteState(BossAI ctx)
@@ -86,7 +97,11 @@ public class AttackState : AIState, IAttackState
 
     void GenerateAttack(List<string> attacks)
     {
-        currentAttack = attacks[Random.Range(0, attacks.Count)];
+        int randomAttack = Random.Range(0, attacks.Count);
+
+        attackInfo.storedIndex = randomAttack;
+
+        currentAttack = attacks[randomAttack];
     }
 
     void ExecuteAttack()
@@ -94,6 +109,45 @@ public class AttackState : AIState, IAttackState
         attacking = true;
         Debug.Log(currentAttack);
         bossAnimator.SetTrigger(currentAttack);
+
+        if(attackInfo.attackList.Count == 0)
+        {
+            Debug.LogError("bro aint got no attacks");
+        }
+
+        ReplaceAndRemoveAttack();
+    }
+
+    void ReplaceAndRemoveAttack()
+    {
+        //Current Bug: it needs to know what list to add it back to(FIXED)
+
+        //THis needs a refactor.
+
+        if (attackInfo.previousAttack == null)
+        {
+            attackInfo.previousAttack = currentAttack;
+            attackInfo.storedIndex = attackInfo.attackList.IndexOf(currentAttack);
+            attackInfo.attackList.Remove(currentAttack);
+            attackInfo.previousAttackList = attackInfo.attackList;
+            attackInfo.previousAttackType = attackInfo.attackType;
+            return;
+        }
+
+        //Take the current attack out of the list, put the previous
+        if (attackInfo.previousAttackType == attackInfo.attackType)
+        {
+            attackInfo.attackList.Insert(attackInfo.storedIndex, attackInfo.previousAttack);
+        }
+        else
+        {
+            attackInfo.previousAttackList.Insert(attackInfo.storedIndex, attackInfo.previousAttack);
+        }
+        attackInfo.storedIndex = attackInfo.attackList.IndexOf(currentAttack);
+        attackInfo.previousAttack = currentAttack;
+        attackInfo.attackList.Remove(currentAttack);
+        attackInfo.previousAttackList = attackInfo.attackList;
+        attackInfo.previousAttackType = attackInfo.attackType;
     }
 
     public bool Attacking
