@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/*
+ * Problem: I need to fix the 1 attack bug and make sure the 2 attack bug is fixed as well
+ * Problem: it removes the attack from the 2 attack list making a 1 attack list and then triggering the fallback
+ * 
+ * Solution: Create a variable that checks if there are 2 attacks and make sure the code does not fall back
+ * 
+ */
 
 
 [CreateAssetMenu(fileName = "AttackState", menuName = "BossStates/Attack")]
@@ -25,6 +32,9 @@ public class AttackState : AIState, IAttackState
 
     //previous attack info
     AttackInfo attackInfo = new AttackInfo();
+
+    //Temp bool solution to 2 attack lists
+    bool twoAttackList;
 
     bool attacking;
 
@@ -115,6 +125,13 @@ public class AttackState : AIState, IAttackState
             Debug.LogError("bro aint got no attacks");
         }
 
+
+        twoAttackList = attackInfo.attackList.Count == 1 && attackInfo.attackList == attackInfo.previousAttackList;
+
+        if (attackInfo.attackList.Count <= 1 && !twoAttackList)
+        {
+            return;
+        }
         ReplaceAndRemoveAttack();
     }
 
