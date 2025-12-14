@@ -919,7 +919,7 @@ ParentConstraint:
   m_TranslationAtRest: {x: 0, y: 0.63692087, z: 0.61102986}
   m_RotationAtRest: {x: 0, y: 0, z: 0}
   m_TranslationOffsets:
-  - {x: 0, y: 1.2327116, z: -1.23}
+  - {x: 0, y: 1.2327113, z: -1.2300005}
   m_RotationOffsets:
   - {x: -89.980225, y: 0, z: 0}
   m_AffectTranslationX: 1
@@ -1588,7 +1588,7 @@ ParentConstraint:
   m_TranslationAtRest: {x: 0, y: 0.5178216, z: -0.2589099}
   m_RotationAtRest: {x: -82.966866, y: 180, z: 180}
   m_TranslationOffsets:
-  - {x: 0, y: -1.138687, z: -0.38499928}
+  - {x: 0, y: -1.1386876, z: -0.38499975}
   - {x: 0, y: 0.38499975, z: -1.1386871}
   m_RotationOffsets:
   - {x: 7.033145, y: 180, z: 180}
@@ -9057,6 +9057,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  headSpot: {fileID: 841936772}
+  coilDistance: 10
+  coilSpeed: 100
 --- !u!4 &6297482731812079877
 Transform:
   m_ObjectHideFlags: 0
@@ -9188,7 +9191,7 @@ Transform:
   m_GameObject: {fileID: 3628350429433386459}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.136131, y: 4.64, z: -19.63227}
+  m_LocalPosition: {x: 17.136131, y: 4.64, z: -12.6}
   m_LocalScale: {x: 6, y: 7.05, z: 6.268024}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -14367,6 +14370,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b115aba676c8274fac74217944b2828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modelsTransform: {fileID: 7009994288590344403}
+  attackAudio: {fileID: 11400000, guid: 8d8a69406716c184dad428feac0f26ba, type: 2}
+  particles: []
+  eelMovement: {fileID: 2098139071}
 --- !u!1 &8905401956850918618
 GameObject:
   m_ObjectHideFlags: 0

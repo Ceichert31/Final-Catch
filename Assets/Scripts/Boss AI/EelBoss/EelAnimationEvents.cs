@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class EelAnimationEvents : AnimationEvents
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] EelMovement eelMovement;
+
+    private void Start()
     {
-        
+        //On awake make the slither type allign
+        ChangeSlitherType(1);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    /// <summary>
+    /// 0 for chain slither type and 1 for allignment slither type
+    /// </summary>
+    /// <param name="slitherType"></param>\
+    public void ChangeSlitherType(int slitherType)
     {
-        
+        string slitherTypeString = slitherType == 0 ? "chain" : "allign";
+
+
+        eelMovement.SetSlither(slitherTypeString);
     }
+
 }

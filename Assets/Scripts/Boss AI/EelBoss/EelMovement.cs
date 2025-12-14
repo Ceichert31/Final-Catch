@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void SlitherBehavior();
+
 public class EelMovement : MonoBehaviour
 {
+    private SlitherBehavior slitherBehavior;
+
     [SerializeField] Transform[] eelBones;
     [SerializeField] Vector3[] previousPositions = new Vector3[15];
     [SerializeField] Transform ORB;
@@ -14,6 +18,8 @@ public class EelMovement : MonoBehaviour
     [Header("Idle Anim Stats")]
     [SerializeField] float amplitude = 2.0f;
     [SerializeField] float freqency = 1.0f;
+
+    private int interatable;
 
     private void Start()
     {
@@ -33,58 +39,72 @@ public class EelMovement : MonoBehaviour
     //Nesisary Unparent to get desired behavior
     void UnParent()
     {
-        for(int i = 1; i < eelBones.Length; i++)
+        for(interatable = 1; interatable < eelBones.Length; interatable++)
         {
-            eelBones[i].position = previousPositions[i];
+            eelBones[interatable].position = previousPositions[interatable];
+
+            slitherBehavior();
 
 
-            //NormalSnakeLike Behavior
-            ChainSlither(i);
-
-            //ReAllignmentBehavior
-            //AllignmentSlither(i);
-
-
-            previousPositions[i] = eelBones[i].position;
+            previousPositions[interatable] = eelBones[interatable].position;
         }
     }
 
     //Chain Slither for normal snake like movement
-    void ChainSlither(int i)
+    void ChainSlither()
     {
-        if (Vector3.Distance(eelBones[i].position, eelBones[i - 1].position) > boneLength)
+        if (Vector3.Distance(eelBones[interatable].position, eelBones[interatable - 1].position) > boneLength)
         {
-            eelBones[i].position = Vector3.Lerp(eelBones[i].position, eelBones[i - 1].position, Time.deltaTime * followTime);
+            eelBones[interatable].position = Vector3.Lerp(eelBones[interatable].position, eelBones[interatable - 1].position, Time.deltaTime * followTime);
 
-            AllignRotations(i);
+            AllignRotations();
         }
     }
 
     //AllignmentSlither for alligning the body
-    void AllignmentSlither(int i)
+    void AllignmentSlither()
     {
-        Vector3 targetPosition = eelBones[i - 1].position - ORB.forward * boneLength;
-        eelBones[i].position = Vector3.Lerp(eelBones[i].position, targetPosition, Time.deltaTime * followTime);
+        Vector3 targetPosition = eelBones[interatable - 1].position - ORB.forward * boneLength;
+        eelBones[interatable].position = Vector3.Lerp(eelBones[interatable].position, targetPosition, Time.deltaTime * followTime);
 
-        AllignRotations(i);
+        AllignRotations();
     }
 
-    void AllignRotations(int i)
+    void AllignRotations()
     {
         //Allign Rotations
-        Vector3 boneDirection = (eelBones[i].position - eelBones[i - 1].position).normalized;
+        Vector3 boneDirection = (eelBones[interatable].position - eelBones[interatable - 1].position).normalized;
 
-        Quaternion targetDirection = Quaternion.LookRotation(eelBones[i].forward, boneDirection);
-        eelBones[i].rotation = Quaternion.Slerp(eelBones[i].rotation, targetDirection, Time.deltaTime * followTime);
+        Quaternion targetDirection = Quaternion.LookRotation(eelBones[interatable].forward, boneDirection);
+        eelBones[interatable].rotation = Quaternion.Slerp(eelBones[interatable].rotation, targetDirection, Time.deltaTime * followTime);
     }
 
     void ORBRotation()
     {
-        float sinWave = Mathf.Sin(freqency * Time.time) * amplitude;
+        //float sinWave = Mathf.Sin(freqency * Time.time) * amplitude;
 
-        ORB.eulerAngles = Vector3.up * sinWave;
+        //ORB.eulerAngles = Vector3.up * sinWave;
 
         /*float sinWave = Mathf.Sin(freqency * Time.time + Mathf.PerlinNoise(Time.time * 0.1f, 0) * 0.5f) * amplitude;
         ORB.localRotation = Quaternion.Euler(0, sinWave, 0);*/
+    }
+
+
+    public void SetSlither(string slither)
+    {
+        slitherBehavior = null;
+
+        switch(slither.ToLower())
+        {
+            case "chain":
+                slitherBehavior += ChainSlither;
+                    break;
+            case "allign":
+                slitherBehavior += AllignmentSlither;
+                break;
+            default:
+                Debug.LogError("What u mean u do not want chain or allign slither");
+                break;
+        }
     }
 }
