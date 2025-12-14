@@ -2421,10 +2421,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7009994288590344403}
-  - component: {fileID: 6431630439005015616}
   - component: {fileID: 9028256301270266569}
   - component: {fileID: 7333972999863125790}
   - component: {fileID: 3559977343670011625}
+  - component: {fileID: 9028256301270266570}
   m_Layer: 10
   m_Name: BossModels
   m_TagString: Damageable
@@ -9053,15 +9053,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6132143284166794024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa76384331b3e91498d4a22a286c63ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 44ee47ac1123c9f47acc1fc0fe68d29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationEvents: {fileID: 8880517718949191008}
-  initalMoveAmmount: 10
-  slowDownAmmount: 0
-  stopWalkingDistance: 3.5
-  constantMoveSpeed: 15
-  chargeSpeed: 30
+  speed: 10
 --- !u!4 &6297482731812079877
 Transform:
   m_ObjectHideFlags: 0
@@ -9108,29 +9103,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &6431630439005015616
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34989712183249602}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.2
-  m_Height: 3.46729
-  m_Direction: 2
-  m_Center: {x: -0.007794618, y: 0.0074489745, z: -1.7179394}
 --- !u!4 &6583733710909579640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2639638324218457063, guid: d25c648f261d7a84caf9e6ea8007f09a,
@@ -14392,23 +14364,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3628350429433386459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6a74bcbbb2f8674d9684037da79539b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b115aba676c8274fac74217944b2828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelsTransform: {fileID: 7009994288590344403}
-  attackAudio: {fileID: 11400000, guid: 8d8a69406716c184dad428feac0f26ba, type: 2}
-  particles: []
-  shockWaveInfo:
-    shockWave: {fileID: 0}
-    shockWaveSpawnPosition: {fileID: 0}
-    initalExpandRate: 0
-    initalExpandTime: 0
-    expandRate: 0
-    deathTime: 0
-  tutorialTextEventChannel: {fileID: 11400000, guid: df2a378f815b98c4dbf317771f629cc1,
-    type: 2}
-  playerComponentChannel: {fileID: 11400000, guid: 5169ef8312d4e084a909206641ba478e,
-    type: 2}
 --- !u!1 &8905401956850918618
 GameObject:
   m_ObjectHideFlags: 0
@@ -14471,6 +14429,29 @@ MonoBehaviour:
   weakPointMultiplier: 3
   parentObject: {fileID: 3628350429433386459}
   bossAnimator: {fileID: 8880517718949191007}
+--- !u!136 &9028256301270266570
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34989712183249602}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.22339137
+  m_Height: 7.3472204
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.089278966}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
