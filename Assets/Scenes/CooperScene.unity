@@ -921,7 +921,7 @@ ParentConstraint:
   m_TranslationOffsets:
   - {x: 0, y: 1.2327113, z: -1.2300005}
   m_RotationOffsets:
-  - {x: -89.980225, y: 0, z: 0}
+  - {x: -90, y: 0, z: 0}
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
   m_AffectTranslationZ: 1
@@ -7991,7 +7991,8 @@ MonoBehaviour:
     maxDistance: 30
     waitTime: 1000
     gracePeriod: 10000
-    meleeAttacks: []
+    meleeAttacks:
+    - MultiCharge
     rangedAttacks: []
   currentState: {fileID: 0}
   bossStates:
