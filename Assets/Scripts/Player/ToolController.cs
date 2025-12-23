@@ -12,7 +12,7 @@ public class ToolController : MonoBehaviour
 
     private Animator fishRodAnimator;
 
-    [SerializeField] private Animator xrayAnimator;
+    //[SerializeField] private Animator xrayAnimator;
 
     //private StencilController stencilController;
 
@@ -40,22 +40,7 @@ public class ToolController : MonoBehaviour
     {
         ctx.Action.Movement.SwitchStencils.performed += DebugSwitchTools;
 
-        ctx.Action.Movement.XrayVision.performed += SetXRayVision;
-
         mainAction = ctx;
-    }
-
-    bool isXrayEnabled;
-    void SetXRayVision(InputAction.CallbackContext ctx)
-    {
-        if (xrayAnimator == null) return;
-
-        isXrayEnabled = !isXrayEnabled;
-
-        if (isXrayEnabled)
-            xrayAnimator.SetTrigger("OpenLens");
-        else
-            xrayAnimator.SetTrigger("CloseLens");
     }
 
     //Debug
