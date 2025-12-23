@@ -1614,6 +1614,7 @@ MonoBehaviour:
     type: 2}
   bossMaxHealth: 100
   weakPointMultiplier: 2
+  parentObject: {fileID: 0}
   bossAnimator: {fileID: 5338587677684947829}
 --- !u!114 &8254534239658114609
 MonoBehaviour:
@@ -6583,6 +6584,12 @@ MonoBehaviour:
   bossInformation:
     meleeDistance: 10
     maxDistance: 60
+    waitTime: 0
+    gracePeriod: 0
+    meleeAttacks:
+    - Slam
+    - ComboAttack
+    rangedAttacks: []
   currentState: {fileID: 0}
   bossStates:
   - {fileID: 11400000, guid: 015c969b07314bc4f93bd6c985c5e705, type: 2}
@@ -6760,6 +6767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 1
+  leadPercentage: 2
 --- !u!114 &3366985430791190513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6772,9 +6780,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa76384331b3e91498d4a22a286c63ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationEvents: {fileID: 0}
+  animationEvents: {fileID: 8628595212690122963}
   initalMoveAmmount: 10
   slowDownAmmount: 2
+  stopWalkingDistance: 3.5
+  constantMoveSpeed: 15
+  chargeSpeed: 30
 --- !u!1 &8414884648548912869
 GameObject:
   m_ObjectHideFlags: 0
