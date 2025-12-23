@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 434042018}
-  m_IndirectSpecularColor: {r: 0.12368473, g: 0.18786256, b: 0.2771572, a: 1}
+  m_IndirectSpecularColor: {r: 0.12368455, g: 0.18786201, b: 0.27715665, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2212,6 +2212,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939591259619301516, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: dragRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939591259619301516, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 8939591259619301516, guid: b59b9ea62f378d04da1442badcd2d715,
         type: 3}

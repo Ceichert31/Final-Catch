@@ -83,7 +83,7 @@ public class CombatController : MonoBehaviour
     {
         ctx.Action.Combat.Disable();
 
-        ctx.Action.Combat.ReelIn.performed += Parry;
+        //ctx.Action.Combat.ReelIn.performed += Parry;
 
         ctx.Action.Combat.Fire.performed += FireHarpoon;
 
