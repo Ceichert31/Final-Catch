@@ -98,7 +98,7 @@ public class HarpoonController : MonoBehaviour
 
         //Get projectile class and initialize it
         HarpoonProjectile projectile = instance.GetComponent<HarpoonProjectile>();
-        projectile.Init(projectileSpeed, projectileLifetime, Camera.main.transform.forward, damageMultiplier);
+        projectile.Init(projectileSpeed + damageMultiplier, projectileLifetime, Camera.main.transform.forward, damageMultiplier);
     }
 
     #region Animation Helper Functions
