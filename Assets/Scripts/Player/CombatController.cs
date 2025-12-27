@@ -81,6 +81,7 @@ public class CombatController : MonoBehaviour
             chargeMeter += Time.deltaTime;
             
             chargeEffectController.UpdateCharge(chargeMeter, maxCharge);
+            chargeMeter = Mathf.Clamp(chargeMeter, 0, maxCharge);
             
             yield return null;
         }
