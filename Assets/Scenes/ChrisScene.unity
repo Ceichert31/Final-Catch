@@ -1950,6 +1950,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPSMovement
       objectReference: {fileID: 0}
+    - target: {fileID: 3963237049249974958, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: levelOneDamageMultiplier
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3963237049249974958, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: levelTwoDamageMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3963237049249974958, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: levelThreeDamageMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4184258596113817863, guid: b59b9ea62f378d04da1442badcd2d715,
         type: 3}
       propertyPath: m_LocalPosition.x
