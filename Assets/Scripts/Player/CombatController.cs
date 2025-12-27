@@ -8,41 +8,91 @@ public enum GrappleSurface
     damageable,
     weakPoint,
 }
+
 public class CombatController : MonoBehaviour
 {
     [Header("Scriptable Object Reference")]
-    [SerializeField] private AudioPitcherSO spearGunFireAudio;
+    [SerializeField]
+    private AudioPitcherSO spearGunFireAudio;
+    
+    [SerializeField]
+    private HarpoonChargeEffectController chargeEffectController;
 
     [Header("Harpoon Settings")]
-    [SerializeField] private float reloadTime = 1.5f;
-    [SerializeField] private float fireRange = 50f;
+    [SerializeField]
+    private float reloadTime = 1.5f;
 
-    private HarpoonController harpoonController;
+    [SerializeField]
+    private float fireRange = 50f;
+    
+    [SerializeField]
+    private float chargeMeter;
 
-    private AudioSource source;
+    [SerializeField] private float maxCharge = 2.5f;
+
+    private HarpoonController _harpoonController;
+
+    private AudioSource _source;
+
+    private bool _isCharging;
+
+    private Coroutine _instance = null;
 
     private void Awake()
     {
-        harpoonController = GetComponentInChildren<HarpoonController>();
+        _harpoonController = GetComponentInChildren<HarpoonController>();
 
-        source = GetComponent<AudioSource>();
+        _source = GetComponent<AudioSource>();
     }
 
     /// <summary>
-    /// Fires raycast to detect if there is a weakpoint
+    /// Start charging attack or fire attack if button isn't held down
     /// </summary>
     void FireHarpoon(InputAction.CallbackContext ctx)
     {
-        if (!harpoonController._CanFire) return;
+        if (!_harpoonController._CanFire)
+            return;
 
         //Play SFX
-        spearGunFireAudio.Play(source);
+        spearGunFireAudio.Play(_source);
 
-        //Fire physics based harpoon projectile
-        harpoonController.FireHarpoon();
+        //Start charging harpoon
+        if (_instance != null) return;
+        
+        _isCharging = true;
+        _instance = StartCoroutine(ChargeHarpoon());
     }
 
-    void StartReload(InputAction.CallbackContext ctx) => harpoonController.Reload();
+    /// <summary>
+    /// Fire attack after charge is released
+    /// </summary>
+    /// <param name="ctx"></param>
+    private void ReleaseHarpoon(InputAction.CallbackContext ctx) { _isCharging = false; }
+
+    /// <summary>
+    /// Adds charge meter and fires when released
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ChargeHarpoon()
+    {
+        chargeMeter = 0;
+        while (_isCharging)
+        {
+            chargeMeter += Time.deltaTime;
+            
+            chargeEffectController.UpdateCharge(chargeMeter, maxCharge);
+            
+            yield return null;
+        }
+        
+        //fire after charging
+        //Maybe pass through charge amount here
+        _harpoonController.FireHarpoon();
+        chargeEffectController.ResetCharge();
+        _instance = null;
+    }
+
+    void StartReload(InputAction.CallbackContext ctx) => _harpoonController.Reload();
 
     /// <summary>
     /// Subscribes functions to the correct controls
@@ -53,6 +103,7 @@ public class CombatController : MonoBehaviour
         ctx.Action.Combat.Disable();
 
         ctx.Action.Combat.Fire.performed += FireHarpoon;
+        ctx.Action.Combat.Fire.canceled += ReleaseHarpoon;
 
         ctx.Action.Combat.Reload.performed += StartReload;
     }
