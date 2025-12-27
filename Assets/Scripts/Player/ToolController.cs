@@ -22,7 +22,7 @@ public class ToolController : MonoBehaviour
     {
         fishingRod = transform.GetChild(0).gameObject;
 
-        harpoonGun = transform.GetChild(2).gameObject;
+        harpoonGun = transform.GetChild(1).gameObject;
 
         fishRodAnimator = transform.GetChild(0).GetComponent<Animator>();
 

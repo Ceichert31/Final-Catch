@@ -84,10 +84,21 @@ public class CombatController : MonoBehaviour
             
             yield return null;
         }
+
+        ChargeLevel chargeLevel = ChargeLevel.Uncharged;
+
+        if (chargeMeter > maxCharge / 2)
+        {
+            chargeLevel = ChargeLevel.Halfcharged;
+        }
+        else if (chargeMeter >= maxCharge)
+        {
+            chargeLevel = ChargeLevel.Charged;
+        }
         
         //fire after charging
         //Maybe pass through charge amount here
-        _harpoonController.FireHarpoon();
+        _harpoonController.FireHarpoon(chargeLevel);
         chargeEffectController.ResetCharge();
         _instance = null;
     }

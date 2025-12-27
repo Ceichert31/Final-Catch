@@ -4,9 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class HarpoonProjectile : MonoBehaviour, IProjectile
+public class HarpoonProjectile : MonoBehaviour
 {
-    [SerializeField] private float projectileDamage => GameManager.Instance.PlayerDamage;
+    [SerializeField] private float projectileDamage;
+
+    private float DamageModifier => GameManager.Instance.PlayerDamage;
 
     [SerializeField] private float projectileSpeed = 20f;
 
@@ -19,7 +21,7 @@ public class HarpoonProjectile : MonoBehaviour, IProjectile
     [SerializeField] private float destroyTime = 1.5f;
 
     [SerializeField] private AudioPitcherSO hitAudio;
-
+    
     private Vector3 targetDirection;
 
     private float currentTime;
@@ -32,11 +34,12 @@ public class HarpoonProjectile : MonoBehaviour, IProjectile
 
     private bool cannotDestroy;
 
-    public void Init(float speed, float lifetime, Vector3 direction)
+    public void Init(float speed, float lifetime, Vector3 direction, float damage)
     {
         projectileSpeed = speed;
         projectileLifetime = lifetime;
         targetDirection = direction;
+        projectileDamage = damage + DamageModifier;
     }
 
     public void Awake()
@@ -63,9 +66,15 @@ public class HarpoonProjectile : MonoBehaviour, IProjectile
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.TryGetComponent(out IDamageable damageable))
+        {
+            damageable.DealDamage(projectileDamage);
+            transform.parent = collision.transform;
+        }
+        
         if (cannotDestroy) return;
 
-        //If harpoon doesnt hit collideable layer destroy
+        //If harpoon doesn't hit collide-able layer destroy
         //Otherwise play hit sound
         if (collision.gameObject.layer != damageLayer)
             Destroy(gameObject);

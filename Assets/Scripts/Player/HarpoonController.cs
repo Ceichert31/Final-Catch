@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HelperMethods;
-using Unity.VisualScripting;
+
+
+public enum ChargeLevel
+{
+    Uncharged,
+    Halfcharged,
+    Charged
+}
 
 public class HarpoonController : MonoBehaviour
 {
@@ -16,6 +23,10 @@ public class HarpoonController : MonoBehaviour
     [SerializeField] private float projectileLifetime = 6f;
 
     [SerializeField] private Transform firingPoint;
+    
+    [SerializeField] private float levelOneDamageMultiplier = 1f;
+    [SerializeField] private float levelTwoDamageMultiplier = 1.5f;
+    [SerializeField] private float levelThreeDamageMultiplier = 2f;
 
     private Animator harpoonAnimator;
 
@@ -50,7 +61,7 @@ public class HarpoonController : MonoBehaviour
     /// <summary>
     /// Plays harpoon fire animation and fires projectile
     /// </summary>
-    public void FireHarpoon()
+    public void FireHarpoon(ChargeLevel chargeLevel)
     {
         //Prevents firing before reload
         if (!canFire)
@@ -71,9 +82,23 @@ public class HarpoonController : MonoBehaviour
         GameObject instance = Instantiate(harpoonProjectile, firingPoint.position, Quaternion.identity);
         instance.transform.up = firingPoint.forward;
 
+        float damageMultiplier = levelOneDamageMultiplier;
+        
+        switch (chargeLevel)
+        {
+            case ChargeLevel.Uncharged:
+                break;
+            case ChargeLevel.Halfcharged:
+                damageMultiplier = levelTwoDamageMultiplier;
+                break;
+            case ChargeLevel.Charged:
+                damageMultiplier = levelThreeDamageMultiplier;
+                break;
+        }
+
         //Get projectile class and initialize it
         HarpoonProjectile projectile = instance.GetComponent<HarpoonProjectile>();
-        projectile.Init(projectileSpeed, projectileLifetime, Camera.main.transform.forward);
+        projectile.Init(projectileSpeed, projectileLifetime, Camera.main.transform.forward, damageMultiplier);
     }
 
     #region Animation Helper Functions

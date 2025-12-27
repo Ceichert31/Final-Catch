@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossWeakpoint : MonoBehaviour
+public class BossWeakpoint : MonoBehaviour, IDamageable
 {
     [Header("Weakpoint Settings")]
     [SerializeField] private float weakpointDamageMultiplier = 1.5f;
@@ -16,7 +16,7 @@ public class BossWeakpoint : MonoBehaviour
     private ParticleSystem bloodSprayParticle;
 
     private BossHealth health;
-    private FloatEvent damage;
+    private FloatEvent damageEvent;
     void Awake()
     {
         health = transform.parent.GetComponent<BossHealth>();
@@ -24,31 +24,12 @@ public class BossWeakpoint : MonoBehaviour
         bloodSprayParticle = transform.GetChild(1).GetComponent<ParticleSystem>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void DealDamage(float damage)
     {
-        //If collision object is parried projectile, deal damage
-        if (collision.gameObject.TryGetComponent(out IProjectile projectileInstance))
-        {
-            //If it has already delt damage, don't deal damage again
-            if (projectileInstance.IsParried) return;
-
-            //Cache projectile damage
-            damage.FloatValue = projectileInstance.ProjectileDamage * weakpointDamageMultiplier;
-
-            //Deal parry damage
-            health.UpdateHealth(damage);
-
-            bloodSprayParticle.Play();
-
-            //Shake camera
-            cameraShakeChannel.CallEvent(cameraShakeDuration);
-
-            //Parent projectile to this
-            collision.gameObject.transform.parent = harpoonHolder;
-
-            projectileInstance.DeleteProjectile();
-
-            //Get collsion point and play special effects
-        }
+        damageEvent.FloatValue = damage;
+        health.UpdateHealth(damageEvent);
+        bloodSprayParticle.Play();
+        cameraShakeChannel.CallEvent(cameraShakeDuration);
     }
+    public float DamageMultiplier => weakpointDamageMultiplier;
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossHealth : MonoBehaviour
+public class BossHealth : MonoBehaviour, IDamageable
 {
     [Header("Scriptable Object Reference")]
     [SerializeField] private FloatEventChannel healthUI_EventChannel;
@@ -18,7 +18,7 @@ public class BossHealth : MonoBehaviour
 
     private FloatEvent currentHealth;
 
-    private FloatEvent damage;
+    private FloatEvent damageEvent;
 
     [Header("Death Variables")]
 
@@ -27,7 +27,9 @@ public class BossHealth : MonoBehaviour
     private Sequencer deathSequencer;
 
     bool isDead;
-
+    
+    //The amount of damage hitting just the boss does
+    public float DamageMultiplier { get; } = 1f;
     private void Start()
     {
         //Set health to max
@@ -50,6 +52,11 @@ public class BossHealth : MonoBehaviour
     /// <param name="ctx"></param>
     public void UpdateHealth(FloatEvent ctx)
     {
+        if (currentHealth.FloatValue <= 0)
+        {
+            return;
+        }
+        
         currentHealth.FloatValue -= ctx.FloatValue;
 
         //Updates health UI
@@ -66,34 +73,6 @@ public class BossHealth : MonoBehaviour
             //Triggers A death animation
             isDead = true;
             bossAnimator.SetTrigger("Death");
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (currentHealth.FloatValue <= 0)
-        {
-            return;
-        }
-
-        //If collision object is parried projectile, deal damage
-        if (collision.gameObject.TryGetComponent(out IProjectile projectileInstance))
-        {
-            //If it has already delt damage, don't deal damage again
-            if (projectileInstance.IsParried) return;
-
-            //Cache projectile damage
-            damage.FloatValue = projectileInstance.ProjectileDamage;
-
-            //Deal parry damage
-            UpdateHealth(damage);
-
-            //Parent projectile to this
-            collision.gameObject.transform.parent = transform.GetChild(2);
-
-            projectileInstance.DeleteProjectile();
-
-            //Get collsion point and play special effects
         }
     }
 
@@ -130,6 +109,12 @@ public class BossHealth : MonoBehaviour
 
         //Returns player
         return_EventChannel.CallEvent(new());
+    }
+
+    public void DealDamage(float damage)
+    {
+        damageEvent.FloatValue = damage;
+        UpdateHealth(damageEvent);
     }
 }
 
