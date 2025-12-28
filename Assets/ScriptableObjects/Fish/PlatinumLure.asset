@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a0c0f0c5dcfe04ba67214c85b184ae, type: 3}
+  m_Name: PlatinumLure
+  m_EditorClassIdentifier: 
+  spawnChance:
+    minValue: 0
+    maxValue: 100
+  fishPrefab: {fileID: 6839625621437434146, guid: b49c5bc0801668047bec45c7b0f8195f,
+    type: 3}

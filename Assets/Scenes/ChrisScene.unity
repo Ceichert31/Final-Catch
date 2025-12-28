@@ -876,7 +876,7 @@ MonoBehaviour:
   animation_EventChannel: {fileID: 11400000, guid: 3103e7216622cb049906eca8a1a10a82,
     type: 2}
   daySpawnPool:
-  - {fileID: 11400000, guid: 01c9b22e8f22ccb4a9c88cf8ddea3f71, type: 2}
+  - {fileID: 11400000, guid: 5951a8cdf45dee542ac5c1bb492b39c6, type: 2}
   nightSpawnPool:
   - {fileID: 11400000, guid: 01c9b22e8f22ccb4a9c88cf8ddea3f71, type: 2}
   fishingTickRate: 2
@@ -2071,22 +2071,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPSMovement
       objectReference: {fileID: 0}
-    - target: {fileID: 3963237049249974958, guid: b59b9ea62f378d04da1442badcd2d715,
-        type: 3}
-      propertyPath: cameraShakeChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: a6d4b11ca597ea84e9409ea766ee1f01,
-        type: 2}
-    - target: {fileID: 3963237049249974958, guid: b59b9ea62f378d04da1442badcd2d715,
-        type: 3}
-      propertyPath: cameraShakeDuration
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 3963237049249974958, guid: b59b9ea62f378d04da1442badcd2d715,
-        type: 3}
-      propertyPath: levelOneDamageMultiplier
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4184258596113817863, guid: b59b9ea62f378d04da1442badcd2d715,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2135,16 +2119,6 @@ PrefabInstance:
     - target: {fileID: 4184258596113817863, guid: b59b9ea62f378d04da1442badcd2d715,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4974923305809984500, guid: b59b9ea62f378d04da1442badcd2d715,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5031592389012777530, guid: b59b9ea62f378d04da1442badcd2d715,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

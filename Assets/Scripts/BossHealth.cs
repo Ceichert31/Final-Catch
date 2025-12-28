@@ -12,9 +12,9 @@ public class BossHealth : MonoBehaviour, IDamageable
     [Header("Boss Health Settings")]
     [SerializeField] private int bossMaxHealth = 100;
 
-    [SerializeField] private float weakPointMultiplier = 2f;
-
     [SerializeField] private GameObject parentObject;
+    
+    [SerializeField] private float damageMultiplier = 1;
 
     private FloatEvent currentHealth;
 
@@ -113,7 +113,7 @@ public class BossHealth : MonoBehaviour, IDamageable
 
     public void DealDamage(float damage)
     {
-        damageEvent.FloatValue = damage;
+        damageEvent.FloatValue = damage * damageMultiplier;
         UpdateHealth(damageEvent);
     }
 }
