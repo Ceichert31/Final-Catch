@@ -21,7 +21,7 @@ public class BassBossAnimationEvents : AnimationEvents
 {
     private BassBossMoveBehavoir bassBossMoveBehavior;
 
-    [SerializeField] private FloatEventChannel cameraShakeChannel;
+    [SerializeField] private Vector2EventChannel cameraShakeChannel;
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem staggerParticle;
@@ -95,7 +95,7 @@ public class BassBossAnimationEvents : AnimationEvents
 
     public void ShakeCamera(float duration)
     {
-        cameraShakeChannel.CallEvent(new FloatEvent(duration));
+        cameraShakeChannel.CallEvent(new Vector2Event(new(duration, 1f)));
     }
     public void FireProjectiles(int amount)
     {

@@ -9961,10 +9961,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45e15bfe259e3341aa191b54ea1f794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weakpointDamageMultiplier: 2.3
-  cameraShakeChannel: {fileID: 11400000, guid: 878ac75cdf3a9e6488219fb28d8acc34, type: 2}
-  cameraShakeDuration:
-    FloatValue: 0.3
+  weakpointDamageMultiplier: 1.3
+  cameraShakeChannel: {fileID: 11400000, guid: a6d4b11ca597ea84e9409ea766ee1f01, type: 2}
+  cameraShakeDurationAndIntensity:
+    Value: {x: 0.5, y: 1}
   harpoonHolder: {fileID: 1106107489010546680}
 --- !u!1 &1457615314099600851
 GameObject:
@@ -9977,7 +9977,7 @@ GameObject:
   - component: {fileID: 6657773975454265676}
   - component: {fileID: 5105997135630968250}
   - component: {fileID: 5379992412738581222}
-  - component: {fileID: 7152515671682641571}
+  - component: {fileID: 7837408176663014853}
   m_Layer: 0
   m_Name: CinematicCamera
   m_TagString: Untagged
@@ -10096,7 +10096,7 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &7152515671682641571
+--- !u!81 &7837408176663014853
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10504,9 +10504,9 @@ MonoBehaviour:
     type: 2}
   return_EventChannel: {fileID: 11400000, guid: 031bf15b227ac964090accf92761417a,
     type: 2}
-  bossMaxHealth: 25
-  weakPointMultiplier: 3
+  bossMaxHealth: 35
   parentObject: {fileID: 3169854276685192581}
+  damageMultiplier: 0.8
   bossAnimator: {fileID: 4975895896689395347}
 --- !u!114 &7020062992093209280
 MonoBehaviour:
@@ -25580,7 +25580,7 @@ MonoBehaviour:
   attackAudio: {fileID: 11400000, guid: 8d8a69406716c184dad428feac0f26ba, type: 2}
   particles:
   - {fileID: 436852598108934515}
-  cameraShakeChannel: {fileID: 11400000, guid: 878ac75cdf3a9e6488219fb28d8acc34, type: 2}
+  cameraShakeChannel: {fileID: 11400000, guid: a6d4b11ca597ea84e9409ea766ee1f01, type: 2}
   staggerParticle: {fileID: 436852598108934515}
   explosionParticle: {fileID: 6348876811489715675}
   swimAudio: {fileID: 11400000, guid: d2a5cdcdcd59518408fd14f81e0f514d, type: 2}
@@ -25607,9 +25607,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 120
+  MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -26061,8 +26061,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weakpointDamageMultiplier: 2
   cameraShakeChannel: {fileID: 11400000, guid: 878ac75cdf3a9e6488219fb28d8acc34, type: 2}
-  cameraShakeDuration:
-    FloatValue: 0.3
+  cameraShakeDurationAndIntensity:
+    Value: {x: 0, y: 0}
   harpoonHolder: {fileID: 0}
 --- !u!1 &3471853108388985860
 GameObject:
@@ -26228,10 +26228,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45e15bfe259e3341aa191b54ea1f794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weakpointDamageMultiplier: 2.3
-  cameraShakeChannel: {fileID: 11400000, guid: 878ac75cdf3a9e6488219fb28d8acc34, type: 2}
-  cameraShakeDuration:
-    FloatValue: 0.3
+  weakpointDamageMultiplier: 1.3
+  cameraShakeChannel: {fileID: 11400000, guid: a6d4b11ca597ea84e9409ea766ee1f01, type: 2}
+  cameraShakeDurationAndIntensity:
+    Value: {x: 0.5, y: 1}
   harpoonHolder: {fileID: 1106107489010546680}
 --- !u!1 &4342678410100987690
 GameObject:
