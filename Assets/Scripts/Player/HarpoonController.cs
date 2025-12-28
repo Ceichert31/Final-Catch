@@ -51,7 +51,7 @@ public class HarpoonController : MonoBehaviour
     //Getter
     public bool _CanFire => canFire;
 
-    public bool _Reloading => isReloading;
+    public bool Reloading => isReloading;
 
     private void Start()
     {

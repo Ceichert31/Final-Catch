@@ -2121,6 +2121,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8939591259619301516, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: harpoonController
+      value: 
+      objectReference: {fileID: 630442365}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3702,6 +3707,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1163499382}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &630442365 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3963237049249974958, guid: b59b9ea62f378d04da1442badcd2d715,
+    type: 3}
+  m_PrefabInstance: {fileID: 525744994}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0219d7d3944db448be67de81c4c57e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &657844655
 GameObject:
   m_ObjectHideFlags: 0

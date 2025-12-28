@@ -48,6 +48,9 @@ public class InputController : MonoBehaviour
     [SerializeField] private float dashForce = 50f;
 
     [SerializeField] private FloatEvent iFrameDuration;
+    
+    [SerializeField]
+    private HarpoonController harpoonController;
 
     private bool canDash = true;
 
@@ -276,36 +279,15 @@ public class InputController : MonoBehaviour
         //Set cameras rotation
         cam.transform.eulerAngles = new(lookRotation, cam.transform.eulerAngles.y, 0);
     }
-
-    private void New_Dash(InputAction.CallbackContext ctx)
-    {
-        if (!canDash) return;
-
-        //If player isn't moving
-        if (MoveDirection() == Vector3.zero) return;
-
-        canDash = false;
-
-        //Enable IFrames
-        iFrame_EventChannel.CallEvent(iFrameDuration);
-
-        //Ungrapple
-        disableGrapple_EventChannel.CallEvent(new());
-
-        rb.AddForce(MoveDirection() * dashForce, ForceMode.Impulse);
-
-        dashAudio.Play(source);
-
-        fov_EventChannel.CallEvent(new());
-
-        Invoke(nameof(ResetDash), dashCooldown);
-    }
     private void Dash(InputAction.CallbackContext ctx)
     {
         if(!canDash)
         {
             return;
         }
+        
+        //Prevent dash while reloading
+        if (harpoonController.Reloading) return;
 
         //If player isn't moving
         if (MoveDirection() == Vector3.zero) return;
