@@ -7,9 +7,9 @@ public class BossWeakpoint : MonoBehaviour, IDamageable
     [Header("Weakpoint Settings")]
     [SerializeField] private float weakpointDamageMultiplier = 1.5f;
 
-    [SerializeField] private FloatEventChannel cameraShakeChannel;
+    [SerializeField] private Vector2EventChannel cameraShakeChannel;
 
-    [SerializeField] private FloatEvent cameraShakeDuration;
+    [SerializeField] private Vector2Event cameraShakeDurationAndIntensity;
 
     [SerializeField] private Transform harpoonHolder;
 
@@ -26,10 +26,10 @@ public class BossWeakpoint : MonoBehaviour, IDamageable
 
     public void DealDamage(float damage)
     {
-        damageEvent.FloatValue = damage;
+        damageEvent.FloatValue = damage * DamageMultiplier;
         health.UpdateHealth(damageEvent);
         bloodSprayParticle.Play();
-        cameraShakeChannel.CallEvent(cameraShakeDuration);
+        cameraShakeChannel.CallEvent(cameraShakeDurationAndIntensity);
     }
     public float DamageMultiplier => weakpointDamageMultiplier;
 }

@@ -51,20 +51,6 @@ public class InputController : MonoBehaviour
 
     private bool canDash = true;
 
-    //Slide References
-    [Header("Slide Settings")]
-    [SerializeField] GameObject parryBox;
-
-    [Tooltip("How long the player is able to slide for")]
-    [SerializeField] float maxSlideTime = 5f;
-
-    [Tooltip("How fast the player can slide")]
-    [SerializeField] float slideSpeed = 5f;
-
-    [SerializeField] private float slideScaleY = 0.5f;
-
-    [SerializeField] private float transitionTime = 0.3f;
-
     float slideTimer;
     Vector3 slideStartCameraPos;
     bool isSliding;
@@ -200,7 +186,6 @@ public class InputController : MonoBehaviour
     {
         Move();
         AirControl();
-        Sliding();
     }
     private Vector3 MoveDirection()
     {
@@ -255,16 +240,6 @@ public class InputController : MonoBehaviour
         rb.AddForce((combinedForces - dampingForces) * (100 * Time.fixedDeltaTime));
     }
 
-    private bool OnSlope()
-    {
-        return slopeAngle < maxSlopeAngle && slopeAngle != 0;
-    }
-
-    private Vector3 SlopeMoveDirection()
-    {
-        return Vector3.ProjectOnPlane(MoveDirection(), groundHit.normal).normalized;
-    }
-
     private void AirControl()
     {
         if (isGrounded) return;
@@ -290,7 +265,7 @@ public class InputController : MonoBehaviour
         Vector2 lookForce = cameraActions.Look?.ReadValue<Vector2>() ?? Vector2.zero;
 
         //Turn the player with the X-input
-        gameObject.transform.Rotate(lookForce.x * (sensitivity * Vector3.up) / SENSITIVITY_SCALE_FACTOR);
+        gameObject.transform.Rotate(Vector3.up * (lookForce.x * sensitivity) / SENSITIVITY_SCALE_FACTOR);
 
         //Add Y-input multiplied by sensitivity to float
         lookRotation += (-lookForce.y * sensitivity / SENSITIVITY_SCALE_FACTOR);
@@ -325,9 +300,6 @@ public class InputController : MonoBehaviour
 
         Invoke(nameof(ResetDash), dashCooldown);
     }
-    private void ResetDash() => canDash = true;
-
-
     private void Dash(InputAction.CallbackContext ctx)
     {
         if(!canDash)
@@ -338,35 +310,20 @@ public class InputController : MonoBehaviour
         //If player isn't moving
         if (MoveDirection() == Vector3.zero) return;
 
-        float normalizedTimer = ((Time.time - dashStartingTimer)) / dashTimer;
-
-        if(normalizedTimer < .3f)
-        {
-            return;
-        }
-
         canDash = false;
 
         //Enable IFrames
-        //iFrame_EventChannel.CallEvent(iFrameDuration);
-
-        float totalDashForce = Mathf.Lerp(minDashForce, maxDashForce, normalizedTimer);
-
-        Debug.Log(totalDashForce);
-
-        rb.AddForce(MoveDirection() * totalDashForce, ForceMode.Impulse);
+        iFrame_EventChannel.CallEvent(iFrameDuration);
+        
+        rb.AddForce(MoveDirection() * dashForce, ForceMode.Impulse);
 
         dashAudio.Play(source);
 
         fov_EventChannel.CallEvent(new());
-
-        //Start Dash Timer
-        dashStartingTimer = Time.time;
-
-        //CallEvent Channel To Reset Dash UI
-        playerDashReset_EventChannel.CallEvent(new(dashTimer));
-        canDash = true;
+        Invoke(nameof(ResetDash), dashCooldown);
     }
+    
+    private void ResetDash() => canDash = true;
 
     private void Jump(InputAction.CallbackContext ctx)
     {
@@ -376,86 +333,6 @@ public class InputController : MonoBehaviour
 
         rb.AddForce(new(currentDirection.x, jumpForce, currentDirection.z), ForceMode.Impulse);
     }
-
-    #region Slide Functions
-    private void StartSlide(InputAction.CallbackContext ctx)
-    {
-        if (MoveDirection() == Vector3.zero || !IsGrounded) return;
-
-        //Increase FOV
-        fov_EventChannel.CallEvent(new());        
-
-        //Shrink player height
-        StartCoroutine(LerpCamera(new Vector3(cameraHolder.localPosition.x, cameraHolder.localPosition.y - slideScaleY, cameraHolder.localPosition.z), transitionTime)); ;
-
-        //Reset slide timer
-        slideTimer = 0;
-
-        isSliding = true;
-    }
-
-    private void Sliding()
-    {
-        if (!isSliding) return;
-
-        if (!OnSlope() || rb.velocity.y > -0.1f)
-        {
-            slideTimer += Time.deltaTime;
-
-            rb.AddForce(MoveDirection() * slideSpeed, ForceMode.Force);
-        }
-        else
-        {
-            rb.AddForce(SlopeMoveDirection() * slideSpeed, ForceMode.Force);
-        }
-
-        if (slideTimer > maxSlideTime)
-            ResetSlide();
-    }
-
-    private void EndSlide(InputAction.CallbackContext ctx)
-    {
-        ResetSlide();
-    }
-
-    private void ResetSlide()
-    {
-        StopAllCoroutines();
-        parryBox.SetActive(false);
-
-        //Reset height
-        StartCoroutine(LerpCamera(slideStartCameraPos, transitionTime));
-
-        isSliding = false;
-    }
-
-    IEnumerator LerpCamera(Vector3 endPos, float duration)
-    {
-        float elapsed = 0;
-        Vector3 startPos = cameraHolder.localPosition;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-
-            cameraHolder.localPosition = Vector3.Lerp(startPos, endPos, elapsed / duration);
-
-            yield return null;
-        }
-
-        cameraHolder.localPosition = endPos;
-    }
-
-    //Activate the parrybox for the specified number of frames
-    IEnumerator ActiveParry()
-    {
-        parryBox.SetActive(true);
-        yield return new WaitForSeconds(actionDuration);
-        Debug.Log(actionDuration);
-        parryBox.SetActive(false);
-    }
-
-    #endregion
 
     private void StartInteract(InputAction.CallbackContext ctx) => playerInteractor.CanInteract(true);
     private void EndInteract(InputAction.CallbackContext ctx) => playerInteractor.CanInteract(false);
@@ -473,10 +350,6 @@ public class InputController : MonoBehaviour
         movementActions.Interact.performed += StartInteract;
 
         movementActions.Interact.canceled += EndInteract;
-
-        movementActions.Slide.performed += StartSlide;
-
-        movementActions.Slide.canceled += EndSlide;
     }
     private void OnDisable()
     {
@@ -491,10 +364,6 @@ public class InputController : MonoBehaviour
         movementActions.Interact.performed -= StartInteract;
 
         movementActions.Interact.canceled -= EndInteract;
-
-        movementActions.Slide.performed -= StartSlide;
-
-        movementActions.Slide.canceled -= EndSlide;
 
         playerControls.Fishing.Disable();
 

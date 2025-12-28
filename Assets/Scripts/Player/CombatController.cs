@@ -52,10 +52,7 @@ public class CombatController : MonoBehaviour
     {
         if (!_harpoonController._CanFire)
             return;
-
-        //Play SFX
-        spearGunFireAudio.Play(_source);
-
+        
         //Start charging harpoon
         if (_instance != null) return;
         
@@ -87,19 +84,21 @@ public class CombatController : MonoBehaviour
         }
 
         ChargeLevel chargeLevel = ChargeLevel.Uncharged;
-
-        if (chargeMeter > maxCharge / 2)
-        {
-            chargeLevel = ChargeLevel.Halfcharged;
-        }
-        else if (chargeMeter >= maxCharge)
+        
+        if (chargeMeter >= maxCharge || Mathf.Approximately(chargeMeter, maxCharge))
         {
             chargeLevel = ChargeLevel.Charged;
+        }
+        else if (chargeMeter > maxCharge / 2)
+        {
+            chargeLevel = ChargeLevel.Halfcharged;
         }
         
         //fire after charging
         //Maybe pass through charge amount here
         _harpoonController.FireHarpoon(chargeLevel);
+        //Play SFX
+        spearGunFireAudio.Play(_source);
         chargeEffectController.ResetCharge();
         _instance = null;
     }

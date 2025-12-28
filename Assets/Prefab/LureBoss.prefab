@@ -10823,9 +10823,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakpointDamageMultiplier: 2
-  cameraShakeChannel: {fileID: 11400000, guid: 878ac75cdf3a9e6488219fb28d8acc34, type: 2}
-  cameraShakeDuration:
-    FloatValue: 0.3
+  cameraShakeChannel: {fileID: 11400000, guid: a6d4b11ca597ea84e9409ea766ee1f01, type: 2}
+  cameraShakeDurationAndIntensity:
+    Value: {x: 0, y: 0}
   harpoonHolder: {fileID: 4726240883445287608}
 --- !u!1 &6645988948429123648
 GameObject:
