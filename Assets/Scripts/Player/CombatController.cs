@@ -28,6 +28,9 @@ public class CombatController : MonoBehaviour
     [SerializeField]
     private float chargeMeter;
 
+    [SerializeField]
+    private float chargeModifier = 1f;
+
     [SerializeField] private float maxCharge = 2.5f;
 
     private HarpoonController _harpoonController;
@@ -75,7 +78,7 @@ public class CombatController : MonoBehaviour
         chargeMeter = 0;
         while (_isCharging)
         {
-            chargeMeter += Time.deltaTime;
+            chargeMeter += Time.deltaTime * chargeModifier;
             
             chargeEffectController.UpdateCharge(chargeMeter, maxCharge);
             chargeMeter = Mathf.Clamp(chargeMeter, 0, maxCharge);

@@ -2121,6 +2121,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5013484447417827137, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: chargeModifier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8939591259619301516, guid: b59b9ea62f378d04da1442badcd2d715,
         type: 3}
       propertyPath: harpoonController
