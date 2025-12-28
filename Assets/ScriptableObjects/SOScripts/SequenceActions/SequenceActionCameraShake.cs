@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sequencer Actions/Camera Shake")]
 public class SequenceActionCameraShake : SequencerAction
 {
-    [SerializeField] private FloatEventChannel shake_EventChannel;
+    [SerializeField] private Vector2EventChannel shake_EventChannel;
 
-    [SerializeField] private FloatEvent shakeDuration;
+    [SerializeField] private Vector2Event shakeDurationAndIntensity;
 
     public override IEnumerator StartSequence(Sequencer ctx)
     {
-        shake_EventChannel.CallEvent(shakeDuration);
+        shake_EventChannel.CallEvent(shakeDurationAndIntensity);
 
         yield return null;
     }

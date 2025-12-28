@@ -16,6 +16,7 @@ public class HarpoonController : MonoBehaviour
     [Header("Scriptable Object Reference")]
     [SerializeField] private VoidEventChannel fov_EventChannel;
     [SerializeField] private AudioPitcherSO reloadAudio;
+    [SerializeField] private Vector2EventChannel cameraShakeChannel;
 
     [Header("Projectile Settings")]
     [SerializeField] private GameObject harpoonProjectile;
@@ -25,9 +26,16 @@ public class HarpoonController : MonoBehaviour
     [SerializeField] private Transform firingPoint;
     
     [SerializeField] private float levelOneDamageMultiplier = 1f;
+    [SerializeField] private float levelOneScreenShake = 0.75f;
+    
     [SerializeField] private float levelTwoDamageMultiplier = 1.5f;
+    [SerializeField] private float levelTwoScreenShake = 1.5f;
+    
     [SerializeField] private float levelThreeDamageMultiplier = 2f;
+    [SerializeField] private float levelThreeScreenShake = 4.5f;
 
+    [SerializeField] private float cameraShakeDuration = 0.3f;
+    
     private Animator harpoonAnimator;
 
     private Sequencer attackSequencer;
@@ -76,7 +84,7 @@ public class HarpoonController : MonoBehaviour
         harpoonAnimator.SetBool("Fire", true);
 
         //Play attack sequencer
-        attackSequencer.InitializeSequence();
+        //attackSequencer.InitializeSequence();
 
         //Instantiate projectile 
         GameObject instance = Instantiate(harpoonProjectile, firingPoint.position, Quaternion.identity);
@@ -87,11 +95,20 @@ public class HarpoonController : MonoBehaviour
         switch (chargeLevel)
         {
             case ChargeLevel.Uncharged:
+                cameraShakeChannel.CallEvent(new Vector2Event(
+                    new(cameraShakeDuration, levelOneScreenShake
+                    )));
                 break;
             case ChargeLevel.Halfcharged:
+                cameraShakeChannel.CallEvent(new Vector2Event(
+                    new(cameraShakeDuration, levelTwoScreenShake
+                    )));
                 damageMultiplier = levelTwoDamageMultiplier;
                 break;
             case ChargeLevel.Charged:
+                cameraShakeChannel.CallEvent(new Vector2Event(
+                    new(cameraShakeDuration, levelThreeScreenShake
+                    )));
                 damageMultiplier = levelThreeDamageMultiplier;
                 break;
         }

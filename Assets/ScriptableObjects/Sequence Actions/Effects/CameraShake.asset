@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f82a5839d8fae2428bf060414cad42d, type: 3}
   m_Name: CameraShake
   m_EditorClassIdentifier: 
-  shake_EventChannel: {fileID: 11400000, guid: 878ac75cdf3a9e6488219fb28d8acc34, type: 2}
-  shakeDuration:
-    FloatValue: 0.45
+  shake_EventChannel: {fileID: 11400000, guid: a6d4b11ca597ea84e9409ea766ee1f01, type: 2}
+  shakeDurationAndIntensity:
+    Value: {x: 0.45, y: 1}

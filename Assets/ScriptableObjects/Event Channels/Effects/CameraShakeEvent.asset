@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc4d79c45954b1499d2790f1e01571e, type: 3}
-  m_Name: CameraShakeEventChannel
+  m_Script: {fileID: 11500000, guid: dd1a31866696baf4a92a9b28b22efc61, type: 3}
+  m_Name: CameraShakeEvent
   m_EditorClassIdentifier: 
   OnEventCalled:
     m_PersistentCalls:
