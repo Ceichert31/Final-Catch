@@ -2128,11 +2128,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8939591259619301516, guid: b59b9ea62f378d04da1442badcd2d715,
         type: 3}
-      propertyPath: harpoonController
-      value: 
-      objectReference: {fileID: 630442365}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+      propertyPath: dragRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939591259619301516, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939591259619301516, guid: b59b9ea62f378d04da1442badcd2d715,
+        type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 22537
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 438877230589466363, guid: b59b9ea62f378d04da1442badcd2d715, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 8829397048881863424, guid: b59b9ea62f378d04da1442badcd2d715, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b59b9ea62f378d04da1442badcd2d715, type: 3}
