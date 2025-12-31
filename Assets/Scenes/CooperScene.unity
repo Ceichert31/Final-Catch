@@ -998,7 +998,7 @@ Animator:
   m_GameObject: {fileID: 919132148013271088}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1bc966aa185dade4e85a520b91dc7cbf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2477,8 +2477,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weakpointDamageMultiplier: 2
   cameraShakeChannel: {fileID: 11400000, guid: 878ac75cdf3a9e6488219fb28d8acc34, type: 2}
-  cameraShakeDuration:
-    FloatValue: 0.3
+  cameraShakeDurationAndIntensity:
+    Value: {x: 0, y: 0}
   harpoonHolder: {fileID: 0}
 --- !u!114 &349711368666342984
 MonoBehaviour:
@@ -9061,6 +9061,11 @@ MonoBehaviour:
   headSpot: {fileID: 841936772}
   coilDistance: 10
   coilSpeed: 100
+  chargeSpeed: 0
+  animationEvents: {fileID: 0}
+  chargeCount: 0
+  maxChargeCount: 5
+  minChargeCount: 3
 --- !u!4 &6297482731812079877
 Transform:
   m_ObjectHideFlags: 0
@@ -14375,6 +14380,7 @@ MonoBehaviour:
   attackAudio: {fileID: 11400000, guid: 8d8a69406716c184dad428feac0f26ba, type: 2}
   particles: []
   eelMovement: {fileID: 2098139071}
+  eelBehavior: {fileID: 0}
 --- !u!1 &8905401956850918618
 GameObject:
   m_ObjectHideFlags: 0
@@ -14434,8 +14440,8 @@ MonoBehaviour:
   return_EventChannel: {fileID: 11400000, guid: 031bf15b227ac964090accf92761417a,
     type: 2}
   bossMaxHealth: 15
-  weakPointMultiplier: 3
   parentObject: {fileID: 3628350429433386459}
+  damageMultiplier: 1
   bossAnimator: {fileID: 8880517718949191007}
 --- !u!136 &9028256301270266570
 CapsuleCollider:

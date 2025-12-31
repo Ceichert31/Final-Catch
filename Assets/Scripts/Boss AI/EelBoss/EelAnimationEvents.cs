@@ -6,6 +6,9 @@ public class EelAnimationEvents : AnimationEvents
 {
     [SerializeField] EelMovement eelMovement;
 
+    [SerializeField] EelMovementBehavior eelBehavior;
+
+
     private void Start()
     {
         //On awake make the slither type allign
@@ -25,4 +28,25 @@ public class EelAnimationEvents : AnimationEvents
         eelMovement.SetSlither(slitherTypeString);
     }
 
+
+    /// <summary>
+    /// 6: Charge Player
+    /// 7: Deassign Charge Method and trigger stop charging
+    /// </summary>
+    public override void UpdateBossActiveBehavior(int behavior)
+    {
+        base.UpdateBossActiveBehavior(behavior);
+
+        switch (behavior)
+        {
+            case 6:
+                eelBehavior.OnStartCharge();
+                activeBehavior += eelBehavior.EelChargePlayer;
+                break;
+            case 7:
+                bossAnimator.SetTrigger("StopCharging");
+                activeBehavior -= eelBehavior.EelChargePlayer;
+                break;
+        }
+    }
 }
