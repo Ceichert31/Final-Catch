@@ -7989,8 +7989,8 @@ MonoBehaviour:
   bossInformation:
     meleeDistance: 10
     maxDistance: 30
-    waitTime: 1000
-    gracePeriod: 10000
+    waitTime: 2
+    gracePeriod: 4
     meleeAttacks:
     - MultiCharge
     rangedAttacks: []
@@ -9061,8 +9061,8 @@ MonoBehaviour:
   headSpot: {fileID: 841936772}
   coilDistance: 10
   coilSpeed: 100
-  chargeSpeed: 0
-  animationEvents: {fileID: 0}
+  chargeSpeed: 10
+  animationEvents: {fileID: 8880517718949191008}
   chargeCount: 0
   maxChargeCount: 5
   minChargeCount: 3
@@ -14380,7 +14380,7 @@ MonoBehaviour:
   attackAudio: {fileID: 11400000, guid: 8d8a69406716c184dad428feac0f26ba, type: 2}
   particles: []
   eelMovement: {fileID: 2098139071}
-  eelBehavior: {fileID: 0}
+  eelBehavior: {fileID: 6132143284166794025}
 --- !u!1 &8905401956850918618
 GameObject:
   m_ObjectHideFlags: 0

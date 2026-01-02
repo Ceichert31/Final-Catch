@@ -5,6 +5,7 @@ using HelperMethods;
 
 public class EelMovementBehavior : MonoBehaviour, IBossWalkBehavior
 {
+
     [SerializeField] float speed = 10f;
     Transform bossTransform => transform.parent;
     [SerializeField] Transform headSpot;
@@ -46,14 +47,12 @@ public class EelMovementBehavior : MonoBehaviour, IBossWalkBehavior
         bossTransform.RotateAround(GameManager.Instance.Player.transform.position, Vector3.up, coilSpeed * Time.deltaTime);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     public void EelChargePlayer()
     {
         bossTransform.position += bossTransform.forward * chargeSpeed * Time.deltaTime;
 
-        if (!Util.IsLookingAtTarget(bossTransform, GameManager.Instance.Player.transform, 0))
+        if (!Util.IsLookingAtTarget(headSpot, GameManager.Instance.Player.transform, 0))
         {
             Debug.Log("Fish passed up player");
             animationEvents.UpdateBossActiveBehavior(7);

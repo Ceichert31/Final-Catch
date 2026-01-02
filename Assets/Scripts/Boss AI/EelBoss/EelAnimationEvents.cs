@@ -40,11 +40,13 @@ public class EelAnimationEvents : AnimationEvents
         switch (behavior)
         {
             case 6:
+                Debug.Log("Hap");
+
                 eelBehavior.OnStartCharge();
                 activeBehavior += eelBehavior.EelChargePlayer;
                 break;
             case 7:
-                bossAnimator.SetTrigger("StopCharging");
+                bossAnimator.SetTrigger("StopMultiCharge");
                 activeBehavior -= eelBehavior.EelChargePlayer;
                 break;
         }

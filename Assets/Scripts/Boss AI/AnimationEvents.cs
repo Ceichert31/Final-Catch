@@ -161,6 +161,7 @@ public abstract class AnimationEvents : MonoBehaviour
     {
         activeBehavior = null;
         activeBehavior += () => { };
+        Debug.Log("removed the listeners");
     }
 
     /// <summary>
