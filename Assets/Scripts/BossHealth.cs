@@ -5,8 +5,8 @@ using UnityEngine;
 public class BossHealth : MonoBehaviour, IDamageable
 {
     [Header("Scriptable Object Reference")]
-    [SerializeField] private FloatEventChannel healthUI_EventChannel;
-    [SerializeField] private FloatEventChannel maxHealthUI_EventChannel;
+    //[SerializeField] private FloatEventChannel healthUI_EventChannel;
+    //[SerializeField] private FloatEventChannel maxHealthUI_EventChannel;
     [SerializeField] private VoidEventChannel return_EventChannel;
 
     [Header("Boss Health Settings")]
@@ -16,6 +16,7 @@ public class BossHealth : MonoBehaviour, IDamageable
     
     [SerializeField] private float damageMultiplier = 1;
 
+    [SerializeField]
     private FloatEvent currentHealth;
 
     private FloatEvent damageEvent;
@@ -36,7 +37,7 @@ public class BossHealth : MonoBehaviour, IDamageable
         currentHealth.FloatValue = bossMaxHealth;
 
         //Initialize max health
-        maxHealthUI_EventChannel.CallEvent(currentHealth);
+        //maxHealthUI_EventChannel.CallEvent(currentHealth);
 
         //Start whatever sequence this boss has
         gameObject.GetComponent<Sequencer>().InitializeSequence();
@@ -60,7 +61,7 @@ public class BossHealth : MonoBehaviour, IDamageable
         currentHealth.FloatValue -= ctx.FloatValue;
 
         //Updates health UI
-        healthUI_EventChannel.CallEvent(currentHealth);
+        //healthUI_EventChannel.CallEvent(currentHealth);
 
         //Fish health hits zero
         if(isDead)
