@@ -8902,6 +8902,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7165934b9fdce743adfd78967f236ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modelsTransform: {fileID: 5806325416575247382}
+  attackAudio: {fileID: 11400000, guid: 8d8a69406716c184dad428feac0f26ba, type: 2}
+  particles: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
